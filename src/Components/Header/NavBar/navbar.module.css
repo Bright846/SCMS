@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+.container {
+    /* position: fixed; */
+    width: 100vw;
+    height: 50px;
+    background-color: rgb(30, 199, 188);
+    display: flex;
+    justify-content: space-between;
+}
+
+.left {
+    width: 100px;
+    height: 100%;
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.left img {
+    height: 40px;
+}
+
+.left p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+}
+
+.right {
+    width: 60vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.right link {
+    font-size: 14px;
+    color: black;
+
+}
+
+#login {
+    background-color: rgb(54, 5, 104);
+    color: whitesmoke;
+    padding: 2px 12px;
+    border-radius: 10px;
+}
+
+/* Dropdown Menu Styles */
+.compOpt,
+.loginOpt {
+    position: absolute;
+    /* Positions relative to parent container */
+    top: 60px;
+    /* Adjust based on navbar height */
+    right: calc(32%);
+    /* Adjust based on your layout */
+    width: 153px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    /* Ensure visibility */
+    border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.loginOpt {
+    right: calc(1%);
+}
+
+.compOpt a,
+.loginOpt a {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    color: black;
+}
+
+.compOpt a:last-child,
+.loginOpt a:last-child {
+    border-bottom: none;
+    /* Remove border for last item */
+}
+
+.compOpt a:hover,
+.loginOpt a:hover {
+    background-color: lightgray;
+    /* Highlight effect */
+}
+
+/* Styles for blurred background */
+.blur {
+    filter: blur(5px);
+    /* Apply blur effect */
+    transition: filter 0.3s ease;
+    /* Smooth transition */
+}
+
+/* Modal styles for StudentLogin */
+.modal {
+    position: fixed;
+    /* Fixed positioning to cover entire screen */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* Full viewport width */
+    height: 100vh;
+    /* Full viewport height */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black background */
+    display: flex;
+    /* Flexbox for centering content */
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    z-index: 1000;
+    /* Ensure it appears above all other content */
+}
+
+/* Content inside the modal (StudentLogin) */
+.loginContent {
+    background-color: white;
+    /* White background for login form */
+    padding: 20px;
+    /* Add padding around content */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow effect */
+}
+
+.loginContent button {
+    background-color: #6a11cb;
+    width: 60px;
+    cursor: pointer;
+    border: none;
+    padding: 5px;
+    border-radius: 10px;
+}

@@ -1,0 +1,43 @@
+.footerContainer {
+    width: 100vw;
+    height: 180px;
+    background-color: darkgray;
+    display: flex;
+
+}
+
+.contactInfo,
+.socialMediaLinks {
+    width: 30%;
+    height: 150px;
+    margin-top: 20px;
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 14px;
+}
+
+.contactInfo a {
+    text-decoration: none;
+    color: black;
+}
+
+.address {
+    width: 30%;
+    height: 150px;
+    margin-top: 30px;
+    margin-left: 40px;
+    font-size: 14px;
+}
+
+.copyright {
+    font-size: 10px;
+    text-align: center;
+    position: relative;
+    background-color: darkgray;
+}
+
+.socialMediaLinks a img {
+    width: 20px;
+}

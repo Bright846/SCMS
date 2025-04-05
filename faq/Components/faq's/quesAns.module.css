@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.faqContainer {
+    width: 80vw;
+    margin: auto;
+    background-color: beige;
+}
+
+.faqItem {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.title {
+    margin: 20px;
+    padding-left: 20px;
+    font-size: 20px;
+}
+
+.Question {
+    padding: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.Answer {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 15px;
+    background-color: #f9f9f9;
+    word-wrap: break-word;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+}
+
+.InpQuesContainer {
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
+}
+
+#inpQues {
+    width: 350px;
+    margin-bottom: 20px;
+    padding: 10px;
+    outline: none;
+    border-radius: 10px;
+    border: none;
+}
+
+#submitBtn {
+    width: 60px;
+    height: 35px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#submitBtn:hover {
+    background-color: grey;
+}

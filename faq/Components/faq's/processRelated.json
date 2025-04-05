@@ -1,0 +1,22 @@
+[
+    {
+        "Question": "How long does it take for a complaint to be resolved?",
+        "Answer": "Resolution times vary depending on the complexity of the issue but are typically within a few business days. You will be notified of any delays."
+    },
+    {
+        "Question": "What happens after I submit a complaint?",
+        "Answer": "After submission, your complaint is reviewed by the relevant team. They will investigate the issue and work on resolving it as quickly as possible."
+    },
+    {
+        "Question": "Can I escalate my complaint if I am not satisfied with the resolution?",
+        "Answer": "Yes, there is an escalation process in place for unresolved or unsatisfactory complaints."
+    },
+    {
+        "Question": "Will I be notified about updates on my complaint?",
+        "Answer": "Yes, you will receive notifications via email or SMS at every stage of the process—from acknowledgment to resolution."
+    },
+    {
+        "Question": "Can I withdraw my complaint after submission?",
+        "Answer": "Yes, you can withdraw your complaint by contacting our support team."
+    }
+]

@@ -1,0 +1,64 @@
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.personalInfo {
+    margin-top: 20px;
+}
+
+.infoItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.infoItem:last-child {
+    border-bottom: none;
+    /* Remove border from last item */
+}
+
+.buttonContainer {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    /* Center buttons */
+}
+
+.button {
+    background-color: #007bff;
+    /* Primary button color */
+    color: white;
+    width: 100px;
+    padding: 10px 20px;
+    margin-right: 50px;
+    left: 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    /* Transition effect */
+}
+
+.button:hover {
+    background-color: #0056b3;
+    /* Darker shade on hover */
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: small;
+    color: #777;
+}

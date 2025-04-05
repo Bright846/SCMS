@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Iansui&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+
+#heroImg {
+    width: 100vw;
+    height: 350px;
+}
+
+.quote {
+    text-align: center;
+    margin-top: 20px;
+    font-family: "Iansui";
+}
+
+.quote p {
+    font-size: 35px;
+}
+
+#quoteDesc {
+    font-size: 15px;
+}
+
+.liveQuote {
+    font-size: 25px;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 20px 0;
+    color: black;
+}
+
+.statItem {
+    text-align: center;
+}
+
+.statNumber {
+    font-size: 2rem;
+    font-weight: bold;
+    display: block;
+    color: black;
+}
+
+.stataLbel {
+    font-size: 1rem;
+    color: #e0e0e0;
+}
+
+.animatedNum {
+    animation: countUp 2s ease-out forwards;
+}
+
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        content: "0";
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        content: "92";
+    }
+}
+
+.compBtn {
+    margin-top: 20px;
+    width: 100vw;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.compBtn button {
+    padding: 10px;
+    border-radius: 20px;
+    background-color: aqua;
+    cursor: pointer;
+    border: none;
+}
+
+.compBtn button:hover {
+    background-color: rgb(23, 183, 183);
+}

@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+}
+
+.navigationBar {
+    color: white;
+    width: 100vw;
+    height: 50px;
+    background-color: rgb(37, 202, 235);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logoContainer {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+
+}
+
+.logoContainer img {
+    height: 35px;
+    margin-left: 20px;
+    margin-bottom: 25px;
+}
+
+.logoContainer span {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+#navigationLinks {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#navigationLinks a {
+    font-size: 14px;
+    font-weight: 600;
+    color: whitesmoke;
+}
+
+#logOutBtn {
+    background-color: rgb(15, 70, 114);
+    font-size: 15px;
+    padding: 10px 15px;
+    margin-right: 30px;
+    color: whitesmoke;
+    border-radius: 10px;
+}

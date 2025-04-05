@@ -1,0 +1,18 @@
+[
+    {
+        "Question": "Can I track the status of my complaint?",
+        "Answer": "Yes, you will receive a unique tracking ID that allows you to monitor the progress of your complaint in real time."
+    },
+    {
+        "Question": "Does the system provide automated responses?",
+        "Answer": "Yes, automated acknowledgments are sent immediately after a complaint is submitted to confirm receipt."
+    },
+    {
+        "Question": "What if I want to update my complaint after submission?",
+        "Answer": "The system allows you to log in and update your complaint details or add additional information as needed."
+    },
+    {
+        "Question": "Does the system integrate with other tools?",
+        "Answer": "Yes, it integrates with CRM software, email systems, and other platforms to provide a unified view of customer interactions."
+    }
+]

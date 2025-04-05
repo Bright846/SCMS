@@ -1,0 +1,22 @@
+[
+    {
+        "Question": "What should I do if I face issues while submitting a complaint?",
+        "Answer": "If you encounter any problems, please contact our support team via email or phone for assistance."
+    },
+    {
+        "Question": "Is there a mobile app for submitting complaints?",
+        "Answer": "No, Currently we do not have any application for smartphone but in future we will launch the app as well."
+    },
+    {
+        "Question": "Do I need an account to submit a complaint?",
+        "Answer": "While having an account makes it easier to track your complaints, we also allow guest submissions for one-time users."
+    },
+    {
+        "Question": "Are there any charges for using this system?",
+        "Answer": "No, submitting complaints through our platform is completely free."
+    },
+    {
+        "Question": "How do I provide feedback on the resolution process?",
+        "Answer": "Once your complaint is resolved, you will receive a feedback form where you can rate your experience and suggest improvements. "
+    }
+]

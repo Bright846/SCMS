@@ -1,0 +1,114 @@
+/* body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+} */
+
+.container {
+    max-width: 1200px;
+    /* Set max width for desktop */
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.overviewPanel {
+    margin-top: 20px;
+}
+
+.stats {
+    display: grid;
+    /* Use grid layout for better organization */
+    grid-template-columns: repeat(4, 1fr);
+    /* Four columns for desktop */
+    gap: 20px;
+    /* Space between items */
+    margin-bottom: 20px;
+}
+
+.statItem {
+    background: #e7f3fe;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 5px solid #007bff;
+    /* Add a left border */
+}
+
+.statItem:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.notifications {
+    margin-top: 20px;
+}
+
+.notifications ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.notifications ul li {
+    background-color: #fff3cd;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    opacity: 0;
+    /* Start hidden for animation */
+    transform: translateY(10px);
+    /* Start slightly below */
+    animation-duration: 0.5s;
+    /* Animation duration */
+    animation-fill-mode: forwards;
+    /* Keep end state */
+}
+
+.notificationItem {
+    color: black;
+    opacity: 0;
+    /* Start hidden */
+    transform: translateY(10px);
+    /* Start slightly below */
+    animation: slideIn 0.5s forwards;
+    /* Animation */
+}
+
+/* Animation for notifications */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: small;
+    color: #777;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+        /* Two columns on smaller screens */
+        gap: 10px;
+        /* Reduced gap */
+    }
+}

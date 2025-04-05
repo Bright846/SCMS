@@ -1,0 +1,22 @@
+[
+    {
+        "Question": "What is a complaint management system?",
+        "Answer": "A complaint management system is a platform that helps organizations handle customer complaints efficiently, from logging the issue to resolving it. It automates repetitive tasks, streamlines workflows, and ensures compliance with regulatory standards."
+    },
+    {
+        "Question": "Who can use the complaint management system?",
+        "Answer": "This system is designed for customers, employees, and stakeholders who need to report issues or provide feedback. It benefits both users submitting complaints and staff managing them."
+    },
+    {
+        "Question": "How does the system handle complaints?",
+        "Answer": "Complaints are logged, categorized, and assigned to the relevant department for investigation. The system tracks the status of each complaint and ensures timely resolution while keeping the complainant informed."
+    },
+    {
+        "Question": "What types of complaints can I submit?",
+        "Answer": "You can submit complaints related to product defects, service issues, billing errors, or any dissatisfaction with the organization’s offerings."
+    },
+    {
+        "Question": "Is my data secure in the system?",
+        "Answer": "Yes, all data submitted through the complaint management system is encrypted and stored securely to protect your privacy."
+    }
+]
