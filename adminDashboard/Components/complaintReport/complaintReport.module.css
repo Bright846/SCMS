@@ -1,0 +1,65 @@
+.histogramContainer {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.histogramContainer h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.reportSection {
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.reportSection h2 {
+    margin-bottom: 10px;
+}
+
+.reportSection ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.reportSection li {
+    margin-bottom: 5px;
+}
+
+.reportSection li::before {
+    content: "\2022";
+    margin-right: 5px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.downloadBtn {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 20px 30px;
+    background-color: #007bff;
+    /* Blue background */
+    color: white;
+    /* White text */
+    border: none;
+    border-radius: 5px;
+    /* Rounded corners */
+    font-size: 16px;
+    /* Font size */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Smooth transition for hover effects */
+}
+
+.downloadBtn:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+    transform: scale(1.05);
+    /* Slightly enlarge the button on hover */
+}

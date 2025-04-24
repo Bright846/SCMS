@@ -58,6 +58,7 @@ const facultyLogin = () => {
 
         // Add more validation rules as needed
         alert("Login successful!");
+        window.location.href = "../../../../public/facultyDashboard";
     };
 
     const validateRegister = () => {
@@ -92,7 +93,7 @@ const facultyLogin = () => {
         <div className={Style.formContainer} ref={formContainerRef}>
             {/* Login Form */}
             <div className={`${Style.form} ${Style.loginForm}`}>
-                <h2>Login</h2>
+                <h2>Faculty Login</h2>
                 <div className={Style.inputGroup}>
                     <input type="email" id="loginEmail" placeholder="Email" required />
                 </div>

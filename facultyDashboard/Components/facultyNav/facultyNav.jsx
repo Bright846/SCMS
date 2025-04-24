@@ -3,7 +3,7 @@ import Style from '../../../studDashboard/Components/studDashNav/studDashNav.mod
 import Logo from '../../../src/assets/logo.png';
 import { Link, useNavigate } from "react-router-dom";
 
-const AdminDashNav = () => {
+const facultyNav = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -22,11 +22,10 @@ const AdminDashNav = () => {
                 <span>SCMS</span>
             </div>
             <div id={Style.navigationLinks}>
-                <Link to="/adminDashboard">Home</Link>
-                <Link to="/adminDashboard/View-Complaint">Complaints</Link>
-                <Link to="/adminDashboard/Complaint-Report">Report</Link>
-                <Link to="/adminDashboard/Admin-Profile-Page">Profile</Link>
-                <Link to="/adminDashboard/SCMS-Feedback-Form">Feedback</Link>
+                <Link to="/facultyDashboard">Home</Link>
+                <Link to="/facultyDashboard/All-Tasks">Tasks</Link>
+                <Link to="/facultyDashboard/Faculty-Profile-Page">Profile</Link>
+                <Link to="/facultyDashboard/SCMS-Feedback-Form">Feedback</Link>
             </div>
 
             <button id={Style.logOutBtn} onClick={handleLogout}>Log Out</button>
@@ -34,4 +33,4 @@ const AdminDashNav = () => {
     );
 }
 
-export default AdminDashNav;
+export default facultyNav;

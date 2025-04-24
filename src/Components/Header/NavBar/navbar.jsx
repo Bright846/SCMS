@@ -6,7 +6,7 @@ import { faUser, faGraduationCap, faUserTie } from '@fortawesome/free-solid-svg-
 import logo from "../../../assets/logo.png";
 import StudentLogin from "../../Login/studentLogin/studentLogin";
 import FacultyLogin from "../../Login/facultyLogin/facultyLogin";
-
+import AdminLogin from "../../Login/adminLogin/adminLogin";
 const NavBar = () => {
 
     // show COMPLAINTS option
@@ -125,6 +125,35 @@ const NavBar = () => {
 
         return () => document.removeEventListener("mousedown", handleLoginClickOutside);
     }, []);
+
+    // show ADMIN login
+
+    const [isAdminLogin, setIsAdminLogin] = useState(false);
+    const adminLoginMenuRef = useRef(null); // Reference to the login menu
+    const adminLoginToggleRef = useRef(null); // Reference to the "LOGIN" link
+
+    const adminLoginHandler = (e) => {
+        e.preventDefault(); // Prevents page refresh
+        setIsAdminLogin((prev) => !prev); // Toggles visibility
+    };
+
+    // Click outside handler
+    useEffect(() => {
+        const handleLoginClickOutside = (event) => {
+            if (
+                adminLoginMenuRef.current &&
+                !adminLoginMenuRef.current.contains(event.target) &&
+                adminLoginToggleRef.current &&
+                !adminLoginToggleRef.current.contains(event.target)
+            ) {
+                setIsAdminLogin(false); // Hide the menu if clicked outside
+            }
+        };
+
+        document.addEventListener("mousedown", handleLoginClickOutside);
+
+        return () => document.removeEventListener("mousedown", handleLoginClickOutside);
+    }, []);
     return (
         <>
             <div className={style.container}>
@@ -148,7 +177,7 @@ const NavBar = () => {
                 <div ref={loginMenuRef} className={style.loginOpt}>
                     <a href="#" ref={studLoginToggleRef} onClick={studLoginHandler} ><FontAwesomeIcon icon={faUser} />Student</a>
                     <a href="#" ref={facultyLoginToggleRef} onClick={facultyLoginHandler} ><FontAwesomeIcon icon={faGraduationCap} />Faculty</a>
-                    <a href="#"><FontAwesomeIcon icon={faUserTie} />Admin</a>
+                    <a href="#" ref={adminLoginToggleRef} onClick={adminLoginHandler}><FontAwesomeIcon icon={faUserTie} />Admin</a>
                 </div>
             )}
             {isActive && (
@@ -175,6 +204,15 @@ const NavBar = () => {
                     <div className={style.loginContent}>
                         <FacultyLogin />
                         <button onClick={() => setIsFacultyLogin(false)} style={{ marginTop: "10px" }}>Close</button>
+                    </div>
+                </div>
+            )}
+
+            {isAdminLogin && (
+                <div className={style.modal}>
+                    <div className={style.loginContent}>
+                        <AdminLogin />
+                        <button onClick={() => setIsAdminLogin(false)} style={{ marginTop: "10px" }}>Close</button>
                     </div>
                 </div>
             )}

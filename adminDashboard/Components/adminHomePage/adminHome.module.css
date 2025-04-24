@@ -1,0 +1,110 @@
+.adminDashboard {
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    min-height: 100vh;
+}
+
+.dashboardTitle {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.dashboardCards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    flex: 1 1 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+    font-size: 18px;
+}
+
+.cardValue {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.cardValue.blue {
+    color: #007bff;
+}
+
+.cardValue.green {
+    color: #28a745;
+}
+
+.cardValue.yellow {
+    color: #ffc107;
+}
+
+.cardValue.purple {
+    color: #6f42c1;
+}
+
+.dashboardSections {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.section {
+    flex: 1 1 45%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+    margin-bottom: 15px;
+}
+
+.recentComplaints ul {
+    list-style: none;
+    padding: 0;
+}
+
+.recentComplaints li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.actionButtons button {
+    margin: 8px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.actionButtons .blue {
+    background-color: #007bff;
+}
+
+.actionButtons .green {
+    background-color: #28a745;
+}
+
+.actionButtons .yellow {
+    background-color: #ffc107;
+    color: black;
+}
+
+.actionButtons .red {
+    background-color: #dc3545;
+}
