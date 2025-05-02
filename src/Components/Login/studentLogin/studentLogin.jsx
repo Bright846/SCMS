@@ -3,6 +3,8 @@ import Style from "./studentLogin.module.css";
 import Hide from "../../../assets/hide.png";
 import Show from "../../../assets/show.png";
 import ForgotPwd from "../Forgot Password/forgotPwd";
+import axios from "axios";
+
 
 const BACKEND_URL = "http://localhost:3001";
 
@@ -75,17 +77,16 @@ const StudentLogin = () => {
         }
 
         try {
-            const response = await fetch(`${BACKEND_URL}/api/login/student`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: loginEmail, password: loginPassword }),
-            });
+            const response = await axios.post(
+                `${BACKEND_URL}/api/login/student`,
+                { email: loginEmail, password: loginPassword },
+                { withCredentials: true }
+            );
 
-            const data = await response.json();
-            console.log(data);
+            const data = response.data;
 
-
-            if (response.ok) {
+            // Check for success (usually 200 or 201)
+            if (response.status === 200 || response.status === 201) {
                 setLoginEmail("");
                 setLoginPassword("");
                 window.location.href = "../../../../studDashboard";
@@ -98,9 +99,15 @@ const StudentLogin = () => {
                 }
             }
         } catch (error) {
+            // Axios error responses are in error.response.data
+            if (error.response && error.response.data && error.response.data.message) {
+                setLoginError(error.response.data.message);
+            } else {
+                setLoginError("Network error, please try again");
+            }
             console.log(error);
-            setLoginError("Network error, please try again");
         }
+
     };
 
     const validateRegister = async e => {
@@ -118,20 +125,20 @@ const StudentLogin = () => {
         }
 
         try {
-            const response = await fetch(`${BACKEND_URL}/api/signup/student`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
+            const response = await axios.post(
+                `${BACKEND_URL}/api/signup/student`,
+                {
                     studentId: studentId,
                     studentName: studentName,
                     studentEmail: studentEmail,
                     studentPassword: registerPassword,
-                }),
-            });
+                },
+                { withCredentials: true }
+            );
 
-            const data = await response.json();
+            const data = response.data;
 
-            if (response.ok) {
+            if (response.status === 200 || response.status === 201) {
                 resetRegisterFields();
                 showLogin();
             } else {
@@ -141,6 +148,7 @@ const StudentLogin = () => {
             console.error("Registration error:", error);
             setRegisterError("Network error, please try again");
         }
+
     };
 
     const toggleForgotPassword = () => {
@@ -184,7 +192,7 @@ const StudentLogin = () => {
                                 toggleVisibility("login");
                             }}
                             className={Style.visibilityBtn}
-                            ariaLabel={
+                            aria-label={
                                 loginPasswordVisible ? "Hide password" : "Show password"
                             }
                         >
@@ -267,7 +275,7 @@ const StudentLogin = () => {
                                 toggleVisibility("register");
                             }}
                             className={Style.visibilityBtn}
-                            ariaLabel={
+                            aria-label={
                                 registerPasswordVisible ? "Hide password" : "Show password"
                             }
                         >

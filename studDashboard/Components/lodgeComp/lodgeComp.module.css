@@ -1,53 +1,85 @@
-/* Container Styles */
+/* Adjusted CSS for a smaller, elegant form */
+
+/* Prevent page scrolling */
+:global(body) {
+    /* overflow: hidden; */
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(120deg, #6dd5ed 0%, #2193b0 100%);
+    min-height: 100vh;
+}
+
+/* Smaller Container Styles with Glassmorphism */
 .container {
-    background: linear-gradient(135deg, #6dd5ed, #2193b0);
-    /* Gradient background */
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-    /* Strong shadow for depth */
-    padding: 40px;
-    max-width: 600px;
-    width: 90%;
-    margin: auto;
-    animation: fadeIn 1s ease-in-out;
-    /* Smooth fade-in animation */
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 6px 24px 0 rgba(31, 38, 135, 0.27);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 36px 28px 28px 28px;
+    /* Reduced padding */
+    max-width: 480px;
+    /* Reduced max width */
+    width: 92%;
+    margin: 36px auto 0 auto;
+    animation: fadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Title Styles */
+/* Fade-in animation (no change) */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    /* Reduced translateY */
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Smaller Title Styles */
 h2 {
-    font-size: 2.5rem;
-    color: #ffffff;
-    /* White text for contrast */
+    font-size: 2.0rem;
+    /* Reduced font size */
+    color: #1a374d;
+    text-shadow: 0 2px 6px #b3e0f2;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+    /* Reduced margin */
+    letter-spacing: 0.8px;
 }
 
-/* Form Styles */
+/* Form Styles (no change) */
 form {
     display: flex;
     flex-direction: column;
+    gap: 0.4rem;
 }
 
-/* Input and Select Styles */
+/* Smaller Input and Select Styles */
 input[type="text"],
 input[type="email"],
 input[type="date"],
 select,
 textarea {
     width: 100%;
-    padding: 12px 15px;
-    border-radius: 12px;
-    /* Rounded corners for modern look */
+    padding: 12px 14px;
+    /* Reduced padding */
+    border-radius: 8px;
     border: none;
-    /* Remove border for cleaner design */
-    font-size: 1rem;
-    margin-bottom: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
-    /* Semi-transparent white background */
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Inner shadow for depth */
-    transition: all 0.3s ease-in-out;
-    /* Smooth transitions on hover/focus */
+    font-size: 0.9rem;
+    /* Reduced font size */
+    margin-bottom: 16px;
+    /* Reduced margin */
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 2px 6px rgba(33, 147, 176, 0.07);
+    transition: box-shadow 0.3s, background 0.3s;
+    color: #1a374d;
+    resize: none;
 }
 
 input[type="text"]:hover,
@@ -55,8 +87,8 @@ input[type="email"]:hover,
 input[type="date"]:hover,
 select:hover,
 textarea:hover {
-    background-color: rgba(255, 255, 255, 1);
-    /* Slightly brighter on hover */
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(33, 147, 176, 0.09);
 }
 
 input[type="text"]:focus,
@@ -64,48 +96,128 @@ input[type="email"]:focus,
 input[type="date"]:focus,
 select:focus,
 textarea:focus {
-    outline-color: #6dd5ed;
-    /* Focus effect with gradient color */
+    outline: none;
+    box-shadow: 0 0 0 2px #6dd5ed44;
+    background: #f7fbfc;
 }
 
-/* Button Styles */
-button {
-    background-color: #ff7e5f;
-    /* Vibrant button color */
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding: 14px;
-    border-radius: 12px;
-    /* Rounded corners for buttons */
+/* Reduced spacing for form groups */
+.formGroup {
+    margin-bottom: 1.1rem;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+    color: #1a374d;
+    letter-spacing: 0.4px;
+    font-size: 0.9rem;
+    /* Reduced font size */
+}
+
+.formGroup textarea {
+    resize: none;
+    min-height: 70px;
+    /* Reduced height */
+}
+
+/* Smaller Animated Submit Button */
+.submitButton {
+    background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+    color: #fff;
+    padding: 11px 0;
+    /* Reduced padding */
     border: none;
+    border-radius: 7px;
+    /* Reduced border radius */
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    /* Smooth transition on hover */
+    font-size: 1.0rem;
+    /* Reduced font size */
+    font-weight: 500;
+    box-shadow: 0 3px 12px rgba(33, 147, 176, 0.08);
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.8px;
 }
 
-button:hover {
-    background-color: #feb47b;
-    /* Hover effect with gradient tone */
+.submitButton:hover:not(:disabled) {
+    background: linear-gradient(90deg, #185a9d 0%, #43cea2 100%);
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 6px 18px rgba(33, 147, 176, 0.15);
+}
+
+.submitButton:disabled {
+    background: #b5c9d6;
+    color: #e8e8e8;
+    cursor: not-allowed;
+}
+
+/* Success and Error Messages */
+.successMessage,
+.errorMessage {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Reduced gap */
+    padding: 12px 14px;
+    /* Reduced padding */
+    margin-bottom: 16px;
+    /* Reduced margin */
+    border-radius: 6px;
+    /* Reduced border radius */
+    font-weight: 400;
+    font-size: 0.9rem;
+    /* Reduced font size */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.successMessage::before,
+.errorMessage::before {
+    font-size: 1.1em;
+    /* Reduced icon size */
+}
+
+.successMessage {
+    background: #eafaf1;
+    color: #239d60;
+    border-left: 4px solid #43cea2;
+    /* Reduced border width */
+}
+
+.errorMessage {
+    background: #fdeaea;
+    color: #d32f2f;
+    border-left: 4px solid #e74c3c;
+    /* Reduced border width */
 }
 
 /* Footer Styles */
 footer {
     text-align: center;
-    color: #ffffff;
-    /* White text for footer */
-    margin-top: 20px;
+    color: #1a374d;
+    margin-top: 28px;
+    /* Reduced margin */
+    font-size: 0.9rem;
+    /* Reduced font size */
+    opacity: 0.75;
+    letter-spacing: 0.4px;
 }
 
 /* Responsive Design Adjustments */
 @media (max-width: 768px) {
     .container {
-        padding: 20px;
-        /* Reduce padding for smaller screens */
-        box-shadow: none;
-        /* Remove shadow for smaller screens */
+        padding: 16px 4vw 16px 4vw;
         border-radius: 12px;
-        /* Slightly smaller corners */
-        background-color: #f9f9f9
+        margin-top: 14px;
+        box-shadow: 0 2px 6px rgba(33, 147, 176, 0.06);
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    .submitButton {
+        font-size: 0.9rem;
+        padding: 10px 0;
     }
 }

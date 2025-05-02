@@ -1,75 +1,99 @@
 import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
 import Style from '../../../studDashboard/Components/ComplaintHistory/complaintHistory.module.css';
 import { ComplaintContext } from "./ComplaintContext";
 
+const BACKEND_URL = "http://localhost:3001";
 const ComplaintHistory = () => {
-    // Access complaints and setter from context
     const { complaints, setComplaints } = useContext(ComplaintContext);
-
-    // Initialize complaints once on mount if empty
-    useEffect(() => {
-        if (complaints.length === 0) {
-            setComplaints([
-                { id: 'CMP001', date: 'March 10, 2025', subject: 'Broken Chair in Classroom 101', status: 'Resolved' },
-                { id: 'CMP002', date: 'March 15, 2025', subject: 'Noise Disturbance in Library', status: 'Pending' },
-                { id: 'CMP003', date: 'March 20, 2025', subject: 'Pest Control Needed in Cafeteria', status: 'Declined' },
-                { id: 'CMP004', date: 'March 25, 2025', subject: 'Faulty Projector in Lecture Hall', status: 'Resolved' },
-                { id: 'CMP005', date: 'April 01, 2025', subject: 'Air Conditioning Issue in Computer Lab', status: 'Pending' },
-                { id: 'CMP006', date: 'April 01, 2025', subject: 'Uncleanliness in Classroom 703', status: 'Pending' },
-                { id: 'CMP007', date: 'April 05, 2025', subject: 'IT Lab Computer Not Working', status: 'Declined' },
-                { id: 'CMP008', date: 'April 08, 2025', subject: 'Water Leak in Student Lounge', status: 'Pending' },
-                { id: 'CMP009', date: 'April 10, 2025', subject: 'Faulty Elevator in Main Building', status: 'Resolved' },
-                { id: 'CMP010', date: 'April 12, 2025', subject: 'Insufficient Lighting in Parking Lot', status: 'Pending' },
-                // Add more complaints as needed
-            ]);
-        }
-    }, []); // Empty dependency array ensures this runs only once on mount
-
     const [filterStatus, setFilterStatus] = useState("All");
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [selectedComplaint, setSelectedComplaint] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
-    function viewDetails(complaintId) {
-        alert("Viewing details for complaint ID " + complaintId);
-        // Replace with modal or navigation logic if needed
-    }
+    // Fetch complaints from MongoDB
+    useEffect(() => {
+        const fetchComplaints = async () => {
+            try {
+                const response = await axios.get(`${BACKEND_URL}/api/get-complaints`, { withCredentials: true });
+                setComplaints(response.data.complaints);
+                setLoading(false);
+            } catch (err) {
+                setError(err.response?.data?.message || 'Failed to fetch complaints');
+                setLoading(false);
+                console.error('Error fetching complaints:', err);
+            }
+        };
 
-    function assignTask(complaintId) {
-        alert("Assigning faculty for complaint ID " + complaintId);
-    }
+        fetchComplaints();
+    }, [setComplaints]);
 
-    // Handle filter change
-    const handleFilterChange = (event) => {
-        setFilterStatus(event.target.value);
+    const handleStatusChange = async (id, newStatus) => {
+        try {
+            await axios.post(
+                `${BACKEND_URL}/api/update-complaint`,
+                { id, status: newStatus },
+                { withCredentials: true }
+            );
+            setComplaints(prev =>
+                prev.map(c => c._id === id ? { ...c, status: newStatus } : c)
+            );
+        } catch (err) {
+            setError(err.response?.data?.message || 'Failed to update status');
+            console.error('Error updating status:', err);
+        }
     };
 
-    // Handle status change for a complaint
-    const handleStatusChange = (id, newStatus) => {
-        setComplaints(prevComplaints =>
-            prevComplaints.map(c =>
-                c.id === id ? { ...c, status: newStatus } : c
-            )
-        );
-        // TODO: Call backend API to persist status change if applicable
+    const viewDetails = async (complaintId) => {
+        try {
+            const response = await axios.get(
+                `${BACKEND_URL}/api/get-complaint/${complaintId}`,
+                { withCredentials: true }
+            );
+            setSelectedComplaint(response.data.complaint);
+            setShowModal(true);
+        } catch (error) {
+            console.error("Error fetching complaint details:", error);
+            alert("Failed to load complaint details.");
+        }
     };
 
-    // Filter complaints based on selected status
-    const filteredComplaints = complaints.filter(complaint => {
-        if (filterStatus === "All") return true;
-        return complaint.status === filterStatus;
-    });
+    const closeModal = () => {
+        setShowModal(false);
+        setSelectedComplaint(null);
+    };
 
-    // Possible statuses for dropdown
+    const assignTask = async (complaintId) => {
+        try {
+            await axios.post(`/api/get-complaints/${complaintId}/assign`, {
+                assignedTo: "Faculty ID here" // Replace with actual faculty ID
+            });
+            alert(`Complaint ${complaintId} assigned successfully`);
+        } catch (err) {
+            setError(err.response?.data?.message || 'Failed to assign task');
+            console.error('Error assigning task:', err);
+        }
+    };
+    const filteredComplaints = Array.isArray(complaints) ? complaints.filter(complaint =>
+        filterStatus === "All" || complaint.status === filterStatus
+    ) : [];
+
     const statusOptions = ["Pending", "Resolved", "Declined"];
+
+    if (loading) return <div className={Style.loader}>Loading complaints...</div>;
+    if (error) return <div className={Style.error}>{error}</div>;
 
     return (
         <div className={Style.container}>
-            <h1>Complaint History</h1>
+            <h1>ALL COMPLAINTS</h1>
 
             <div className={Style.filterContainer}>
                 <label htmlFor="statusFilter">Filter by Status:</label>
                 <select
                     id="statusFilter"
                     value={filterStatus}
-                    onChange={handleFilterChange}
+                    onChange={(e) => setFilterStatus(e.target.value)}
                     className={Style.filterDropdown}
                 >
                     <option value="All">All</option>
@@ -91,16 +115,15 @@ const ComplaintHistory = () => {
                     </tr>
                 </thead>
                 <tbody id={Style.complaintList}>
-                    {filteredComplaints.map(({ id, date, subject, status }) => (
-                        <tr key={id} className={Style.fadeInRow}>
-                            <td>{id}</td>
-                            <td>{date}</td>
-                            <td>{subject}</td>
+                    {filteredComplaints.map(({ _id, createdAt, desc, status, complaintId, complaintDesc }) => (
+                        <tr key={_id} className={Style.fadeInRow}>
+                            <td>{complaintId}</td>
+                            <td>{new Date(createdAt).toLocaleDateString()}</td>
+                            <td>{complaintDesc ? complaintDesc.substring(0, 30) + '...' : 'No Description'}</td>
                             <td>
                                 <select
-                                    aria-label={`Change status for complaint ${id}`}
                                     value={status}
-                                    onChange={(e) => handleStatusChange(id, e.target.value)}
+                                    onChange={(e) => handleStatusChange(_id, e.target.value)}
                                     className={
                                         status === 'Resolved' ? Style.statusResolved :
                                             status === 'Pending' ? Style.statusPending :
@@ -115,8 +138,7 @@ const ComplaintHistory = () => {
                             <td>
                                 <button
                                     className={Style.detailsButton}
-                                    onClick={() => viewDetails(id)}
-                                    aria-label={`View details of complaint ${id}`}
+                                    onClick={() => viewDetails(complaintId)}
                                 >
                                     View Details
                                 </button>
@@ -124,8 +146,7 @@ const ComplaintHistory = () => {
                             <td>
                                 <button
                                     className={Style.detailsButton}
-                                    onClick={() => assignTask(id)}
-                                    aria-label={`Assigning faculty for complaint ${id}`}
+                                    onClick={() => assignTask(_id)}
                                 >
                                     Assign
                                 </button>
@@ -134,6 +155,21 @@ const ComplaintHistory = () => {
                     ))}
                 </tbody>
             </table>
+
+            {/* Modal for complaint details */}
+            {showModal && selectedComplaint && (
+                <div className={Style.modalBackdrop} onClick={closeModal}>
+                    <div className={Style.modalContent} onClick={e => e.stopPropagation()}>
+                        <h2>Complaint Details</h2>
+                        <p><strong>ID:</strong> {selectedComplaint.complaintId}</p>
+                        <p><strong>Description:</strong> {selectedComplaint.complaintDesc}</p>
+                        <p><strong>Status:</strong> {selectedComplaint.status}</p>
+                        <p><strong>Created At:</strong> {new Date(selectedComplaint.createdAt).toLocaleString()}</p>
+                        {/* Add any other fields you want to display */}
+                        <button onClick={closeModal}>Close</button>
+                    </div>
+                </div>
+            )}
 
             <footer className={Style.footer}>
                 &copy; 2025 Smart Complaint Management System. All rights reserved.

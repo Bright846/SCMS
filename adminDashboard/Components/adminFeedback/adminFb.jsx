@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Style from "./adminFb.module.css";
+import axios from "axios";
 
+const BACKEND_URL = "http://localhost:3001";
 const adminFb = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -36,8 +38,6 @@ const adminFb = () => {
         e.preventDefault();
         // Handle form submission logic here
         console.log('Form submitted:', formData);
-        alert('Thank you for your feedback!');
-        // You would typically send this data to your backend here
         try {
             // Transform data to match backend schema
             const payload = {
@@ -67,7 +67,7 @@ const adminFb = () => {
             };
 
             // Send to backend
-            const response = await axios.post('/api/feedback', payload);
+            const response = await axios.post(`${BACKEND_URL}/api/add-feedback`, payload);
 
             if (response.status === 201) {
                 setSubmitSuccess(true);
@@ -93,6 +93,7 @@ const adminFb = () => {
                     other_comments: '',
                     contact_permission: 'no'
                 });
+                alert('Thank you for your feedback!');
             }
         } catch (error) {
             setSubmitError(error.response?.data?.message || 'Submission failed. Please try again.');
@@ -101,10 +102,25 @@ const adminFb = () => {
             setIsSubmitting(false);
         }
     };
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState(null);
+    const [submitSuccess, setSubmitSuccess] = useState(false);
     return (
         <>
             <div className={Style.feedbackForm}>
                 <h2>Admin Feedback Form for SCMS Service Portal</h2>
+                {submitSuccess && (
+                    <div className={Style.successMessage}>
+                        Thank you for your feedback! Your submission has been received.
+                    </div>
+                )}
+
+                {submitError && (
+                    <div className={Style.errorMessage}>
+                        {submitError}
+                    </div>
+                )}
                 <form onSubmit={handleSubmit}>
                     <div className={Style.formGroup}>
                         <label>Name (Optional):</label>
@@ -131,8 +147,9 @@ const adminFb = () => {
                         <input
                             type="text"
                             name="department"
-                            value={formData.department}
+                            value={formData.department = "Admin"}
                             onChange={handleChange}
+                            readOnly
                         />
                     </div>
 
@@ -180,6 +197,7 @@ const adminFb = () => {
                                 value={formData[item.id]}
                                 onChange={handleChange}
                                 rows="4"
+                                required
                             />
                         </div>
                     ))}
@@ -210,8 +228,12 @@ const adminFb = () => {
                         </div>
                     </div>
 
-                    <button type="submit" className={Style.submitBtn}>
-                        Submit Feedback
+                    <button
+                        type="submit"
+                        className={Style.submitBtn}
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
                     </button>
                 </form>
             </div>

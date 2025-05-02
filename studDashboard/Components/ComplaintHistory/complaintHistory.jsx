@@ -1,40 +1,65 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
 import Style from './complaintHistory.module.css';
+import { ComplaintContext } from "../../../adminDashboard/Components/AllCcmplaints/ComplaintContext";
+
+const BACKEND_URL = "http://localhost:3001";
 
 const ComplaintHistory = () => {
-    const [filterStatus, setFilterStatus] = useState("All"); // State to manage the selected filter
+    const [filterStatus, setFilterStatus] = useState("All");
+    const { complaints, setComplaints } = useContext(ComplaintContext);
+    const [studentId, setStudentId] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    // Fetch student profile to get studentId
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await axios.get(`${BACKEND_URL}/api/profile`, { withCredentials: true });
+                setStudentId(response.data.user.studentId);
+            } catch (err) {
+                setError("Failed to fetch profile.");
+                setLoading(false); // Ensure loading is stopped on error
+            }
+        };
+        fetchProfile();
+    }, []);
+
+    // Fetch complaints from backend
+    useEffect(() => {
+        const fetchComplaints = async () => {
+            try {
+                const response = await axios.get(`${BACKEND_URL}/api/get-complaints`, { withCredentials: true });
+                setComplaints(response.data.complaints || []);
+                setLoading(false);
+            } catch (err) {
+                setError("Failed to fetch complaints.");
+                setLoading(false);
+            }
+        };
+        if (studentId) fetchComplaints();
+    }, [studentId, setComplaints]);
+
+    const handleFilterChange = (event) => setFilterStatus(event.target.value);
+
+    // Filter by studentId and status (type-safe)
+    const filteredComplaints = complaints.filter(
+        complaint =>
+            String(complaint.studentId) === String(studentId) &&
+            (filterStatus === "All" || complaint.status === filterStatus)
+    );
 
     function viewDetails(complaintId) {
         alert("Viewing details for complaint ID " + complaintId);
-        // Here you would typically navigate to a detailed view or open a modal with more information
     }
 
-    const complaints = [
-        { id: '001', date: 'March 10, 2025', subject: 'Leaking Faucet', status: 'Resolved' },
-        { id: '002', date: 'March 15, 2025', subject: 'Noise Complaint', status: 'Pending' },
-        { id: '003', date: 'March 20, 2025', subject: 'Pest Control Request', status: 'Declined' },
-        { id: '004', date: 'March 25, 2025', subject: 'Broken Chair', status: 'Resolved' },
-        { id: '005', date: 'April 01, 2025', subject: 'AC is not working', status: 'Pending' },
-        { id: '006', date: 'April 01, 2025', subject: 'Classroom number 703 is not clean', status: 'Pending' }
-        // Add more complaints as necessary
-    ];
-
-    // Function to handle the filter change
-    const handleFilterChange = (event) => {
-        setFilterStatus(event.target.value);
-    };
-
-    // Filter complaints based on the selected status
-    const filteredComplaints = complaints.filter(complaint => {
-        if (filterStatus === "All") return true;
-        return complaint.status === filterStatus;
-    });
+    if (loading) return <div className={Style.loader}>Loading complaints...</div>;
+    if (error) return <div className={Style.error}>{error}</div>;
 
     return (
         <div className={Style.container}>
             <h1>Complaint History</h1>
-
-            {/* Filter Dropdown */}
             <div className={Style.filterContainer}>
                 <label htmlFor="statusFilter">Filter by Status:</label>
                 <select
@@ -49,8 +74,6 @@ const ComplaintHistory = () => {
                     <option value="Declined">Declined</option>
                 </select>
             </div>
-
-            {/* Complaints Table */}
             <table className={Style.complaintTable}>
                 <thead>
                     <tr>
@@ -63,10 +86,10 @@ const ComplaintHistory = () => {
                 </thead>
                 <tbody id={Style.complaintList}>
                     {filteredComplaints.map(complaint => (
-                        <tr key={complaint.id}>
-                            <td>{complaint.id}</td>
-                            <td>{complaint.date}</td>
-                            <td>{complaint.subject}</td>
+                        <tr key={complaint.complaintId || complaint._id}>
+                            <td>{complaint.complaintId || complaint._id || complaint.id}</td>
+                            <td>{complaint.createdAt ? new Date(complaint.createdAt).toLocaleDateString() : ""}</td>
+                            <td>{complaint.subject || complaint.complaintType || complaint.desc || "No Subject"}</td>
                             <td className={
                                 complaint.status === 'Resolved' ? Style.statusResolved :
                                     complaint.status === 'Pending' ? Style.statusPending :
@@ -77,7 +100,7 @@ const ComplaintHistory = () => {
                             <td>
                                 <button
                                     className={Style.detailsButton}
-                                    onClick={() => viewDetails(complaint.id)}
+                                    onClick={() => viewDetails(complaint.complaintId || complaint._id || complaint.id)}
                                 >
                                     View Details
                                 </button>
@@ -86,13 +109,11 @@ const ComplaintHistory = () => {
                     ))}
                 </tbody>
             </table>
-
-            {/* Footer */}
             <footer>
                 &copy; 2025 Smart Complaint Management System. All rights reserved.
             </footer>
         </div>
     );
-}
+};
 
 export default ComplaintHistory;

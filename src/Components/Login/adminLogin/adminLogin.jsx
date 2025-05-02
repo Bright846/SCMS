@@ -3,6 +3,8 @@ import Style from "../studentLogin/studentLogin.module.css";
 import Hide from "../../../assets/hide.png";
 import Show from "../../../assets/show.png";
 
+const BACKEND_URL = "http://localhost:3001";
+
 const AdminLogin = () => {
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
@@ -18,32 +20,51 @@ const AdminLogin = () => {
         }
     };
 
-    const showAdminLogin = () => {
-        setShowForgotPassword(false);
-        if (formContainerRef.current) {
-            formContainerRef.current.style.transform = 'translateX(0)';
-            clearErrors();
-            if (containerRef.current) {
-                containerRef.current.style.height = "341px";
-            }
-        }
-    };
-
     const clearErrors = () => {
         setLoginError('');
     };
 
-    const validateLogin = () => {
+    const handleCancelForgotPassword = () => {
+        setShowForgotPassword(false);
+    };
+
+    const validateLogin = async () => {
         if (!loginEmail || !loginPassword) {
             setLoginError('Please fill in all fields.');
             return false;
         }
 
-        // Add more validation rules as needed
-        alert("Login successful!");
-        resetLoginFiels();
-        window.location.href = "../../../../adminDashboard";
+        try {
+            // Send the login data to your backend API endpoint
+            const response = await fetch(`${BACKEND_URL}/api/login/admin`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    email: loginEmail,
+                    password: loginPassword,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Login was successful on the backend
+                resetLoginFiels();
+                window.location.href = "../../../../adminDashboard";
+                alert("Login successful!");
+            } else {
+                // Login failed on the backend
+                setLoginError(data.message || 'Login failed. Please check your credentials.');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            setLoginError('An error occurred during login.');
+        }
     };
+
 
     const resetLoginFiels = () => {
         setLoginEmail("");
