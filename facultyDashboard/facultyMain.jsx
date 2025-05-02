@@ -5,7 +5,7 @@ import FacultyDashApp from './facultyDashApp';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <BrowserRouter basename='/public'>
+        <BrowserRouter>
             <FacultyDashApp />
         </BrowserRouter>
     </StrictMode>

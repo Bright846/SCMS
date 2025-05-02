@@ -42,7 +42,7 @@ const AdminLogin = () => {
         // Add more validation rules as needed
         alert("Login successful!");
         resetLoginFiels();
-        window.location.href = "../../../../public/adminDashboard";
+        window.location.href = "../../../../adminDashboard";
     };
 
     const resetLoginFiels = () => {

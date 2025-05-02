@@ -5,7 +5,7 @@ import StudDashApp from './studDashApp';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <BrowserRouter basename='/public'>
+        <BrowserRouter>
             <StudDashApp />
         </BrowserRouter>
     </StrictMode>

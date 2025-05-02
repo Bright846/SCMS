@@ -25,7 +25,6 @@ const AdminDashNav = () => {
                 <Link to="/adminDashboard">Home</Link>
                 <Link to="/adminDashboard/View-Complaint">Complaints</Link>
                 <Link to="/adminDashboard/Complaint-Report">Report</Link>
-                <Link to="/adminDashboard/Admin-Profile-Page">Profile</Link>
                 <Link to="/adminDashboard/SCMS-Feedback-Form">Feedback</Link>
             </div>
 

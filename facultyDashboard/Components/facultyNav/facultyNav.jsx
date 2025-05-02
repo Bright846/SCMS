@@ -3,16 +3,32 @@ import Style from '../../../studDashboard/Components/studDashNav/studDashNav.mod
 import Logo from '../../../src/assets/logo.png';
 import { Link, useNavigate } from "react-router-dom";
 
-const facultyNav = () => {
+const FacultyNav = () => {
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        // Clear all local/session storage (if used)
-        localStorage.clear();
-        sessionStorage.clear();
+    const handleLogout = async () => {
+        try {
+            // Call backend logout route to destroy session
+            const response = await fetch('http://localhost:3001/api/logout', {
+                method: 'POST',
+                credentials: 'include', // Important to send cookies/session
+            });
 
-        // Redirect to landing page
-        navigate('/', { replace: true });
+            if (response.ok) {
+                // Clear local/session storage
+                localStorage.clear();
+                sessionStorage.clear();
+
+                // Redirect to landing page
+                navigate('/', { replace: true });
+            } else {
+                console.error('Logout failed on server');
+                // Optionally show error to user
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+            // Optionally show error to user
+        }
     };
 
     return (
@@ -33,4 +49,4 @@ const facultyNav = () => {
     );
 }
 
-export default facultyNav;
+export default FacultyNav;

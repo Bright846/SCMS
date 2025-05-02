@@ -5,7 +5,7 @@ import AdminDashApp from './adminDashApp';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <BrowserRouter basename='/public'>
+        <BrowserRouter>
             <AdminDashApp />
         </BrowserRouter>
     </StrictMode>
