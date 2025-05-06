@@ -54,7 +54,6 @@ const AdminLogin = () => {
                 // Login was successful on the backend
                 resetLoginFiels();
                 window.location.href = "../../../../adminDashboard";
-                alert("Login successful!");
             } else {
                 // Login failed on the backend
                 setLoginError(data.message || 'Login failed. Please check your credentials.');

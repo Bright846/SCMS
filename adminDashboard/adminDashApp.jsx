@@ -6,6 +6,7 @@ import AdminHome from './Components/adminHomePage/adminHome';
 import AllComplaint from './Components/AllCcmplaints/allComplaints';
 import ComplaintReport from './Components/complaintReport/complaintReport';
 import AdminFb from './Components/adminFeedback/adminFb';
+import ViewFeedback from './Components/viewFeedbacksOfStud/viewFeedback';
 
 const adminDashApp = () => {
     return (
@@ -17,7 +18,7 @@ const adminDashApp = () => {
                     <Route path="/adminDashboard/View-Complaint" element={<AllComplaint />} />
                     <Route path="/adminDashboard/Complaint-Report" element={<ComplaintReport />} />
                     <Route path="/adminDashboard/SCMS-Feedback-Form" element={<AdminFb />} />
-
+                    <Route path="/adminDashboard/SCMS-Student-Reviews" element={<ViewFeedback />} />
                 </Routes>
             </ComplaintProvider>
         </>

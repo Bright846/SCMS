@@ -5,12 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGraduationCap, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import logo from "../../../assets/logo.png";
 import StudentLogin from "../../Login/studentLogin/studentLogin";
-import FacultyLogin from "../../Login/facultyLogin/facultyLogin";
 import AdminLogin from "../../Login/adminLogin/adminLogin";
+
 const NavBar = () => {
+    // Track login state (replace with real auth logic if available)
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     // show COMPLAINTS option
-
     const [isActive, setIsActive] = useState(false);
     const menuRef = useRef(null); // Reference to the complaints menu
     const toggleRef = useRef(null); // Reference to the "COMPLAINTS" link
@@ -18,10 +19,9 @@ const NavBar = () => {
     const visibilityHandler = (e) => {
         e.preventDefault(); // Prevents page refresh
         setIsActive((prev) => !prev); // Toggles visibility
-        loginVisibilityHandler();
     };
 
-    // Click outside handler
+    // Click outside handler for complaints menu
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
@@ -40,17 +40,16 @@ const NavBar = () => {
     }, []);
 
     // Show LOGIN Options
-
     const [isOn, setIsOn] = useState(false);
     const loginMenuRef = useRef(null); // Reference to the login menu
     const loginToggleRef = useRef(null); // Reference to the "LOGIN" link
 
     const loginVisibilityHandler = (e) => {
-        e.preventDefault(); // Prevents page refresh
+        if (e) e.preventDefault(); // Prevents page refresh
         setIsOn((prev) => !prev); // Toggles visibility
     };
 
-    // Click outside handler
+    // Click outside handler for login menu
     useEffect(() => {
         const handleLoginClickOutside = (event) => {
             if (
@@ -69,17 +68,15 @@ const NavBar = () => {
     }, []);
 
     // show STUDENT login
-
     const [isStudLogin, setIsStudLogin] = useState(false);
-    const studLoginMenuRef = useRef(null); // Reference to the login menu
-    const studLoginToggleRef = useRef(null); // Reference to the "LOGIN" link
+    const studLoginMenuRef = useRef(null);
+    const studLoginToggleRef = useRef(null);
 
     const studLoginHandler = (e) => {
-        e.preventDefault(); // Prevents page refresh
-        setIsStudLogin((prev) => !prev); // Toggles visibility
+        e.preventDefault();
+        setIsStudLogin((prev) => !prev);
     };
 
-    // Click outside handler
     useEffect(() => {
         const handleLoginClickOutside = (event) => {
             if (
@@ -88,36 +85,7 @@ const NavBar = () => {
                 studLoginToggleRef.current &&
                 !studLoginToggleRef.current.contains(event.target)
             ) {
-                setIsStudLogin(false); // Hide the menu if clicked outside
-            }
-        };
-
-        document.addEventListener("mousedown", handleLoginClickOutside);
-
-        return () => document.removeEventListener("mousedown", handleLoginClickOutside);
-    }, []);
-
-    // show FACULTY login
-
-    const [isFacultyLogin, setIsFacultyLogin] = useState(false);
-    const facultyLoginMenuRef = useRef(null); // Reference to the login menu
-    const facultyLoginToggleRef = useRef(null); // Reference to the "LOGIN" link
-
-    const facultyLoginHandler = (e) => {
-        e.preventDefault(); // Prevents page refresh
-        setIsFacultyLogin((prev) => !prev); // Toggles visibility
-    };
-
-    // Click outside handler
-    useEffect(() => {
-        const handleLoginClickOutside = (event) => {
-            if (
-                facultyLoginMenuRef.current &&
-                !facultyLoginMenuRef.current.contains(event.target) &&
-                facultyLoginToggleRef.current &&
-                !facultyLoginToggleRef.current.contains(event.target)
-            ) {
-                setIsFacultyLogin(false); // Hide the menu if clicked outside
+                setIsStudLogin(false);
             }
         };
 
@@ -127,17 +95,15 @@ const NavBar = () => {
     }, []);
 
     // show ADMIN login
-
     const [isAdminLogin, setIsAdminLogin] = useState(false);
-    const adminLoginMenuRef = useRef(null); // Reference to the login menu
-    const adminLoginToggleRef = useRef(null); // Reference to the "LOGIN" link
+    const adminLoginMenuRef = useRef(null);
+    const adminLoginToggleRef = useRef(null);
 
     const adminLoginHandler = (e) => {
-        e.preventDefault(); // Prevents page refresh
-        setIsAdminLogin((prev) => !prev); // Toggles visibility
+        e.preventDefault();
+        setIsAdminLogin((prev) => !prev);
     };
 
-    // Click outside handler
     useEffect(() => {
         const handleLoginClickOutside = (event) => {
             if (
@@ -146,7 +112,7 @@ const NavBar = () => {
                 adminLoginToggleRef.current &&
                 !adminLoginToggleRef.current.contains(event.target)
             ) {
-                setIsAdminLogin(false); // Hide the menu if clicked outside
+                setIsAdminLogin(false);
             }
         };
 
@@ -154,6 +120,25 @@ const NavBar = () => {
 
         return () => document.removeEventListener("mousedown", handleLoginClickOutside);
     }, []);
+
+    // Show login prompt when trying to access complaints options without login
+    const [loginPrompt, setLoginPrompt] = useState(false);
+
+    // Handler for complaint options
+    const handleComplaintOptionClick = (e, action) => {
+        e.preventDefault();
+        if (!isLoggedIn) {
+            setLoginPrompt(true);
+            setIsOn(true); // Open login options
+            setIsActive(false); // Hide complaints menu
+        } else {
+            // If logged in, handle navigation here (e.g., useNavigate or Link)
+            // For now, just close the menu
+            setIsActive(false);
+            // You can add navigation logic here if needed
+        }
+    };
+
     return (
         <>
             <div className={style.container}>
@@ -172,19 +157,27 @@ const NavBar = () => {
                 </div>
             </div>
 
-            {/* Dropdown Menu */}
+            {/* Dropdown Menu for LOGIN */}
             {isOn && (
                 <div ref={loginMenuRef} className={style.loginOpt}>
+                    {loginPrompt && (
+                        <div className={style.loginPrompt}>
+                            <span style={{ color: "red", fontWeight: "bold" }}>
+                                Please login to access complaint options.
+                            </span>
+                        </div>
+                    )}
                     <a href="#" ref={studLoginToggleRef} onClick={studLoginHandler} ><FontAwesomeIcon icon={faUser} />Student</a>
-                    <a href="#" ref={facultyLoginToggleRef} onClick={facultyLoginHandler} ><FontAwesomeIcon icon={faGraduationCap} />Faculty</a>
                     <a href="#" ref={adminLoginToggleRef} onClick={adminLoginHandler}><FontAwesomeIcon icon={faUserTie} />Admin</a>
                 </div>
             )}
+
+            {/* Dropdown Menu for COMPLAINTS */}
             {isActive && (
                 <div ref={menuRef} className={style.compOpt}>
-                    <a href="" onClick={`${visibilityHandler} ${loginVisibilityHandler}`} ref={loginToggleRef}>View Complaint</a>
-                    <a href="" onClick={visibilityHandler}>Submit Complaint</a>
-                    <a href="" onClick={visibilityHandler}>View Status</a>
+                    <a href="" onClick={(e) => handleComplaintOptionClick(e, "View Complaint")}>View Complaint</a>
+                    <a href="" onClick={(e) => handleComplaintOptionClick(e, "Submit Complaint")}>Submit Complaint</a>
+                    <a href="" onClick={(e) => handleComplaintOptionClick(e, "View Status")}>View Status</a>
                 </div>
             )}
 
@@ -193,17 +186,7 @@ const NavBar = () => {
                 <div className={style.modal}>
                     <div className={style.loginContent}>
                         <StudentLogin />
-                        {/* Close button */}
                         <button onClick={() => setIsStudLogin(false)} style={{ marginTop: "10px" }}>Close</button>
-                    </div>
-                </div>
-            )}
-
-            {isFacultyLogin && (
-                <div className={style.modal}>
-                    <div className={style.loginContent}>
-                        <FacultyLogin />
-                        <button onClick={() => setIsFacultyLogin(false)} style={{ marginTop: "10px" }}>Close</button>
                     </div>
                 </div>
             )}
@@ -221,4 +204,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-

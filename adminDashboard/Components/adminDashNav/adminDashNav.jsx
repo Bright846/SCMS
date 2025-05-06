@@ -25,7 +25,8 @@ const AdminDashNav = () => {
                 <Link to="/adminDashboard">Home</Link>
                 <Link to="/adminDashboard/View-Complaint">Complaints</Link>
                 <Link to="/adminDashboard/Complaint-Report">Report</Link>
-                <Link to="/adminDashboard/SCMS-Feedback-Form">Feedback</Link>
+                <Link to="/adminDashboard/SCMS-Feedback-Form">Send Feedback</Link>
+                <Link to="/adminDashboard/SCMS-Student-Reviews">Student Review</Link>
             </div>
 
             <button id={Style.logOutBtn} onClick={handleLogout}>Log Out</button>

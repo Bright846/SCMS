@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Style from './feedback.module.css';
+import axios from "axios";
+const BACKEND_URL = "http://localhost:3001";
 
 const feedback = () => {
     const [formData, setFormData] = useState({
@@ -9,23 +11,73 @@ const feedback = () => {
         rating: "",
         comments: "",
     });
+    const [studentName, setStudentName] = useState("");
+    const [studentEmail, setStudentEmail] = useState("");
+
+    useEffect(() => {
+        // Fetch profile data on component mount
+        fetchProfile();
+    }, []);
+
+    const fetchProfile = async () => {
+        try {
+            const response = await axios.get(`${BACKEND_URL}/api/profile`, {
+                withCredentials: true,
+            });
+            if (response.data.status === "success") {
+                const user = response.data.user;
+                setStudentName(user.studentName || "");
+                setStudentEmail(user.studentEmail || "");
+            } else {
+                console.error("Failed to fetch profile:", response.data.message);
+            }
+        } catch (error) {
+            console.error("Error fetching profile:", error);
+            // Handle unauthorized (e.g., redirect to login)
+            if (error.response?.status === 401) {
+                window.location.href = "/";
+            }
+        }
+    };
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Feedback Submitted:", formData);
-        alert("Thank you for your feedback!");
-        setFormData({
-            name: "",
-            email: "",
-            complaintId: "",
-            rating: "",
-            comments: "",
-        });
+
+        // Prepare the data to send
+        const feedbackData = {
+            name: studentName,
+            email: studentEmail,
+            complaintId: formData.complaintId,
+            rating: Number(formData.rating),
+            comments: formData.comments,
+        };
+
+        try {
+            const response = await axios.post(
+                `${BACKEND_URL}/api/add-feedback`,
+                feedbackData,
+                { withCredentials: true }
+            );
+
+            if (response.data.status === "success") {
+                alert("Thank you for your feedback!");
+                setFormData({
+                    complaintId: "",
+                    rating: "",
+                    comments: "",
+                });
+            } else {
+                alert("Failed to submit feedback: " + response.data.message);
+            }
+        } catch (error) {
+            alert("Error submitting feedback: " + (error.response?.data?.message || error.message));
+        }
     };
+
     return (
         <>
 
@@ -43,11 +95,11 @@ const feedback = () => {
                         <input
                             type="text"
                             name="name"
-                            value={formData.name}
+                            value={studentName}
                             className={Style.inputBox}
                             onChange={handleChange}
                             placeholder="Enter your full name"
-                            required
+                            readOnly
                         />
                     </div>
 
@@ -57,11 +109,11 @@ const feedback = () => {
                         <input
                             type="email"
                             name="email"
-                            value={formData.email}
+                            value={studentEmail}
                             onChange={handleChange}
                             className={Style.inputBox}
                             placeholder="Enter your email"
-                            required
+                            readOnly
                         />
                     </div>
 
@@ -89,10 +141,9 @@ const feedback = () => {
                             className={Style.selectOpts}
                             required
                         >
-                            <option value="">Select Rating</option>
                             {[1, 2, 3, 4, 5].map((num) => (
                                 <option key={num} value={num}>
-                                    {num} {num === 1 ? "Star" : "Stars"}
+                                    {num}
                                 </option>
                             ))}
                         </select>
