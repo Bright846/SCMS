@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import NavBar from '../../SCMS/src/Components/Header/NavBar/navbar'
-import Main from '../../SCMS/src/Components/Main/main'
-import Footer from '../../SCMS/src/Components/Footer/footer'
+import NavBar from '../src/Components/Header/NavBar/navbar'
+import Main from '../src/Components/Main/main'
+import Footer from '../src/Components/Footer/footer'
 import About from '../About/aboutPage';
 import FaqPage from '../faq/coreFaq';
 
