@@ -3,7 +3,7 @@ import axios from "axios";
 import Style from '../../../studDashboard/Components/ComplaintHistory/complaintHistory.module.css';
 import { ComplaintContext } from "./ComplaintContext";
 
-const BACKEND_URL = "http://localhost:3001";
+const BACKEND_URL = "https://backend-e0p9.onrender.com";
 
 // Robust category priority (handles both "Facility" and "Facilities")
 const categoryPriority = {

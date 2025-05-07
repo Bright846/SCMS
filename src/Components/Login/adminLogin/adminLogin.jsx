@@ -3,7 +3,7 @@ import Style from "../studentLogin/studentLogin.module.css";
 import Hide from "../../../assets/hide.png";
 import Show from "../../../assets/show.png";
 
-const BACKEND_URL = "http://localhost:3001";
+const BACKEND_URL = "https://backend-e0p9.onrender.com";
 
 const AdminLogin = () => {
     const [loginEmail, setLoginEmail] = useState('');

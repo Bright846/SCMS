@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Style from "./adminFb.module.css";
 import axios from "axios";
 
-const BACKEND_URL = "http://localhost:3001";
+const BACKEND_URL = "https://backend-e0p9.onrender.com";
 const adminFb = () => {
     const [formData, setFormData] = useState({
         name: '',

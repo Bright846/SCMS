@@ -86,7 +86,7 @@ const ForgotPwd = () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 
-    const BASE_URL = "http://localhost:3001";
+    const BASE_URL = "https://backend-e0p9.onrender.com";
 
     const sendOTP = async () => {
         if (!emailRegex.test(email)) {

@@ -3,7 +3,7 @@ import axios from "axios";
 import Style from './complaintHistory.module.css';
 import { ComplaintContext } from "../../../adminDashboard/Components/AllCcmplaints/ComplaintContext";
 
-const BACKEND_URL = "http://localhost:3001";
+const BACKEND_URL = "https://backend-e0p9.onrender.com";
 
 const ComplaintHistory = () => {
     const [filterStatus, setFilterStatus] = useState("All");

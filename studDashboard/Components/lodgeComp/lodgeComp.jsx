@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Style from './lodgeComp.module.css';
 
-const BACKEND_URL = "http://localhost:3001";
+const BACKEND_URL = "https://backend-e0p9.onrender.com";
 
 const LodgeComp = () => {
     const [formData, setFormData] = useState({
