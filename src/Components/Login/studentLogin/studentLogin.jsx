@@ -4,6 +4,9 @@ import Hide from "../../../assets/hide.png";
 import Show from "../../../assets/show.png";
 import ForgotPwd from "../Forgot Password/forgotPwd";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+const navigate = useNavigate();
+
 
 
 const BACKEND_URL = "https://backend-e0p9.onrender.com";
@@ -89,7 +92,7 @@ const StudentLogin = () => {
             if (response.status === 200 || response.status === 201) {
                 setLoginEmail("");
                 setLoginPassword("");
-                window.location.href = "../../../../studDashboard";
+                navigate("/studDashboard");
             } else {
                 // Check if the server returned a specific error message
                 if (data && data.message) {
