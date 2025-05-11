@@ -89,7 +89,7 @@ const StudentLogin = () => {
             if (response.status === 200 || response.status === 201) {
                 setLoginEmail("");
                 setLoginPassword("");
-                window.location.href = "../../../../studDashboard";
+                window.location.href = `${BACKEND_URL}studDashboard`;
             } else {
                 // Check if the server returned a specific error message
                 if (data && data.message) {
